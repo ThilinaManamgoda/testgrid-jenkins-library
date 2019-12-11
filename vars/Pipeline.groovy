@@ -180,6 +180,7 @@ def call() {
                             script {
                             log.info("Starting parallel execution stage.")
                             def name = "unknown"
+                            System.setProperty("org.jenkinsci.plugins.workflow.steps.durable_task.DurableTaskStep.REMOTE_TIMEOUT","60")
                             try {
                                 def tests = testExecutor.getTestExecutionMap(props.EXECUTOR_COUNT)
                                 parallel tests
