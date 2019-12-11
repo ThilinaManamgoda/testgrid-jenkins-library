@@ -185,6 +185,7 @@ def call() {
                                 parallel tests
                             } catch (e) {
                                 echo "Parallel test plan execution error: " + e.toString()
+                                echo "Stacktrace: " + e.stackTrace
                                 currentBuild.result = "FAILURE"
                                 alert.sendNotification(currentBuild.result, "Parallel", "#build_status_verbose")
                             }
