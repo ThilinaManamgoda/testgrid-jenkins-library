@@ -338,7 +338,8 @@ def handleException(Exception e, def testPlanId) {
     def errorMsg = "[Pipeline] Error while executing test-plan ${testPlanId} : ${e}"
     log.error(errorMsg)
     currentBuild.result = 'UNSTABLE'
-
+    echo "handleException: " + e.toString()
+    echo "handleException: " + e.stackTrace
     runtime.unstashTestPlansIfNotAvailable("${props.WORKSPACE}/testplans")
 
     sh """
