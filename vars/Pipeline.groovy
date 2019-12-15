@@ -84,7 +84,7 @@ def call() {
                                                      string(credentialsId: "GIT_WUM_PASSWORD", variable: 'pass')]) {
                                         sh """
                                         set +x
-                                        curl --silent --user $user:$pass -k -o ${props.WORKSPACE}/${
+                                        curl -kv -o ${props.WORKSPACE}/${
                                             props.TESTGRID_YAML_LOCATION
                                         } ${props.TESTGRID_YAML_URL}
                                     """
