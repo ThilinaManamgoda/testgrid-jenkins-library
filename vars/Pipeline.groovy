@@ -247,10 +247,10 @@ def call() {
                 node('master') {
                     echo "${BUILD_NUMBER}"
                     echo "jenkins-home ${JENKINS_HOME}"
-                    echo "testgrid-home ${props.TESTGRID_HOME}"
+                    echo "workspace ${WORKSPACE}"
                     echo "job-name ${JOB_NAME}"
-                    sh "cp -v ${props.TESTGRID_HOME}/jobs/WUM/jobs/wum-sce-test-wso2ei-6.1" +
-                            ".0-full/builds/${BUILD_NUMBER}/log ${WORKSPACE}/"
+                    sh "cp -v ${JENKINS_HOME}/jobs/WUM/jobs/wum-sce-test-wso2ei-6.1" +
+                            ".0-full/builds/${BUILD_NUMBER}/log ${WORKSPACE}/log"
                     sh "ls -l ${WORKSPACE}/*"
                     archiveArtifacts artifacts: 'log', onlyIfSuccessful: false
                 }
