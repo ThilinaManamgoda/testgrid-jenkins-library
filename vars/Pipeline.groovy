@@ -244,6 +244,7 @@ def call() {
 
                     }
                 }
+                echo "workspace ${WORKSPACE}"
                 node('master') {
                     echo "${BUILD_NUMBER}"
                     echo "jenkins-home ${JENKINS_HOME}"
