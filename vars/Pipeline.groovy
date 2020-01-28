@@ -246,7 +246,7 @@ def call() {
                 }
                 echo "workspace ${WORKSPACE}"
                 node('master') {
-                   ws(props.WORKSPACE) {
+                   ws("${JENKINS_HOME}/jobs/WUM/jobs/wum-sce-test-wso2ei-6.1.0-full/builds/${BUILD_NUMBER}") {
                        echo "${BUILD_NUMBER}"
                        echo "jenkins-home ${JENKINS_HOME}"
                        echo "workspace ${WORKSPACE}"
