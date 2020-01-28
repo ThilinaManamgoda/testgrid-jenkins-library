@@ -66,9 +66,9 @@ def call() {
 
         stages {
             stage('Preparation') {
-                    steps {
-                        wrap([$class: 'MaskPasswordsBuildWrapper']) { // to enable mask-password plugin
-                            script {
+                steps {
+                    wrap([$class: 'MaskPasswordsBuildWrapper']) { // to enable mask-password plugin
+                        script {
                             currentBuild.result = "SUCCESS"
                             try {
                                 alert.sendNotification('STARTED', "Initiation", "#build_status_verbose")
@@ -175,9 +175,9 @@ def call() {
             }
 
             stage('parallel-run') {
-                    steps {
-                        wrap([$class: 'MaskPasswordsBuildWrapper']) {
-                            script {
+                steps {
+                    wrap([$class: 'MaskPasswordsBuildWrapper']) {
+                        script {
                             log.info("Starting parallel execution stage.")
                             def name = "unknown"
                             try {
@@ -233,6 +233,17 @@ def call() {
                                 email.send("'${props.PRODUCT}'#(${env.BUILD_NUMBER}) - SummarizedEmailReport.html " +
                                         "file not found", "Could not find the summarized email report ${env.BUILD_URL}. This is an error in " +
                                         "testgrid.")
+                            }
+                            echo "${props.WORKSPACE}"
+                            echo "${BUILD_NUMBER}"
+                            echo "jenkins-home ${JENKINS_HOME}"
+                            echo "job-name ${JOB_NAME}"
+
+                            node('master') {
+                                sh "cp -v ${JENKINS_HOME}/jobs/WUM/jobs/wum-sce-test-wso2ei-6.1" +
+                                        ".0-full/builds/${BUILD_NUMBER}/log ${WORKSPACE}/log"
+                                sh "ls -l ${WORKSPACE}/"
+                                archiveArtifacts './log'
                             }
                         } catch (e) {
                             log.warn("Error during post step execution: " + e.getMessage())
