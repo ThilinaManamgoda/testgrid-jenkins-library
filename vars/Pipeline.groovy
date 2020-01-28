@@ -246,15 +246,16 @@ def call() {
                 }
                 echo "workspace ${WORKSPACE}"
                 node('master') {
-                    customWorkspace "${props.WORKSPACE}"
-                    echo "${BUILD_NUMBER}"
-                    echo "jenkins-home ${JENKINS_HOME}"
-                    echo "workspace ${WORKSPACE}"
-                    echo "job-name ${JOB_NAME}"
-                    sh "cp -v ${JENKINS_HOME}/jobs/WUM/jobs/wum-sce-test-wso2ei-6.1" +
-                            ".0-full/builds/${BUILD_NUMBER}/log ${WORKSPACE}/"
-                    sh "ls -l ${WORKSPACE}/*"
-                    archiveArtifacts artifacts: 'log', onlyIfSuccessful: false
+                   ws(props.WORKSPACE) {
+                       echo "${BUILD_NUMBER}"
+                       echo "jenkins-home ${JENKINS_HOME}"
+                       echo "workspace ${WORKSPACE}"
+                       echo "job-name ${JOB_NAME}"
+                       sh "cp -v ${JENKINS_HOME}/jobs/WUM/jobs/wum-sce-test-wso2ei-6.1" +
+                               ".0-full/builds/${BUILD_NUMBER}/log ${props.WORKSPACE}"
+                       sh "ls -l ${WORKSPACE}/*"
+                       archiveArtifacts artifacts: 'log', onlyIfSuccessful: false
+                   }
                 }
             }
         }
