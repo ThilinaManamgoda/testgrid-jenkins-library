@@ -40,7 +40,7 @@ def call() {
     def testExecutor = new TestExecutor()
     def tgExecutor = new TestGridExecutor()
     def runtime = new RuntimeUtils()
-    def ws = new WorkSpaceUtils()
+    def workSpaceUtils = new WorkSpaceUtils()
     def common = new Common()
     def log = new Logger()
     def config = new ConfigUtils()
@@ -130,7 +130,7 @@ def call() {
                                 // Select schedule by using current build information
                                 def schedule = tgExecutor.selectSchedule(currentBuild)
                                 // Creating the job config file
-                                ws.createJobConfigYamlFile("${props.JOB_CONFIG_YAML_PATH}", schedule)
+                                workSpaceUtils.createJobConfigYamlFile("${props.JOB_CONFIG_YAML_PATH}", schedule)
                                 sh """
                                 echo The job-config.yaml content :
                                 cat ${props.JOB_CONFIG_YAML_PATH}
